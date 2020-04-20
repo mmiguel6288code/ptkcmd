@@ -17,4 +17,4 @@ all: .clean .build .upload .install
 	python3 -m twine upload dist/*
 .install: .upload
 	@echo "installing"
-	python3 -m pip install --user --upgrade --force-reinstall ptkcmd
+	python3 -m pip install --user --upgrade --force-reinstall --no-cache ptkcmd
