@@ -1,0 +1,1201 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.1" />
+<title>ptkcmd.ptkcmd API documentation</title>
+<meta name="description" content="Adapted from cmd.py in python standard library." />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>ptkcmd.ptkcmd</code></h1>
+</header>
+<section id="section-intro">
+<p>Adapted from cmd.py in python standard library.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;
+Adapted from cmd.py in python standard library.
+&#34;&#34;&#34;
+import sys, string, shlex, textwrap, os, os.path
+from prompt_toolkit import PromptSession
+from prompt_toolkit.completion import Completer, Completion
+from prompt_toolkit.styles import Style
+from prompt_toolkit.key_binding import KeyBindings
+
+
+def complete_files(curr_arg,path=None):
+    if path is None:
+        path = os.getcwd()
+    full_path = os.path.join(path,curr_arg)
+    if curr_arg == &#39;&#39; or full_path.endswith(&#39;/&#39;):
+        if os.path.exists(full_path):
+            for item in os.listdir(full_path):
+                yield Completion(item,0)
+    else:
+        dirname,basename = os.path.split(full_path)
+        if os.path.exists(dirname):
+            for item in os.listdir(dirname):
+                if item.startswith(basename):
+                    yield Completion(item,-len(basename))
+
+class PtkCmdCompleter(Completer):
+    def __init__(self,ptkcmd):
+        self.ptkcmd = ptkcmd
+
+    def get_completions(self,document,complete_event):
+        yield from self.ptkcmd.complete(document,complete_event)
+
+
+class PtkCmd():
+    identifer_chars = string.ascii_letters + string.digits + &#39;_&#39;
+    prompt = &#39;(PtkCmd) &#39;
+    style = Style.from_dict({
+        &#39;prompt&#39;:&#39;#6600ff&#39;,
+        })
+    nohelp = &#34;*** No help on %s&#34;
+    doc_leader = &#34;&#34;
+    doc_header = &#34;Documented commands (type help &lt;topic&gt;):&#34;
+    misc_header = &#34;Miscellaneous help topics:&#34;
+    undoc_header = &#34;Undocumented commands:&#34;
+    ruler = &#39;=&#39;
+    def __init__(self,stdin=None,stdout=None,intro=None,interactive=True,do_complete_cmd=True,default_shell=False,**psession_kwargs):
+        if stdin is None:
+            stdin = sys.stdin
+        if stdout is None:
+            stdout = sys.stdout
+        self.stdin = stdin
+        self.stdout = stdout
+        if &#39;completer&#39; in psession_kwargs:
+            raise Exception(&#39;Custom completer cannot be used&#39;)
+        self.completer = PtkCmdCompleter(self)
+        psession_kwargs[&#39;completer&#39;] = self.completer
+        if &#39;style&#39; in psession_kwargs:
+            self.style = psession_kwargs[&#39;style&#39;]
+        else:
+            psession_kwargs[&#39;style&#39;] = self.style
+        if not &#39;key_bindings&#39; in psession_kwargs:
+            bindings = KeyBindings()
+            @bindings.add(&#39;c-d&#39;)
+            def eof_keypress(event):
+                event.app.exit()
+            psession_kwargs[&#39;key_bindings&#39;] = bindings
+        self.psession = PromptSession(**psession_kwargs)
+        self.intro = intro
+        self.cmdqueue = []
+        self.interactive = interactive
+        self.do_complete_cmd = do_complete_cmd
+        self.default_shell = default_shell
+        
+        names = dir(self.__class__)
+        cmds_doc = set() 
+        cmds_undoc = set()
+        help_doc = set()
+        help_info = {}
+        cmds_comp = set()
+        for name in names:
+            if name.startswith(&#39;help_&#39;):
+                name = name[5:]
+                help_doc.add(name)
+            elif name.startswith(&#39;do_&#39;):
+                if getattr(self,name).__doc__:
+                    cmds_doc.add(name[3:])
+                else:
+                    cmds_undoc.add(name[3:])
+            elif name.startswith(&#39;complete_&#39;):
+                cmds_comp.add(name[9:])
+        help_doc -= (cmds_doc | cmds_undoc)
+        self.cmds = list(sorted(cmds_doc | cmds_undoc))
+        self.cmds_doc = list(sorted(cmds_doc))
+        self.cmds_undoc = list(sorted(cmds_undoc))
+        self.help_doc = list(sorted(help_doc))
+        self.cmds_comp = list(sorted(cmds_comp))
+    
+
+    def cmdloop(self,intro=None):
+        self.preloop()
+
+        if self.intro is not None:
+            self.stdout.write(str(self.intro)+&#34;\n&#34;)
+        stop = None
+        while not stop:
+            if len(self.cmdqueue) &gt; 0:
+                line = self.cmdqueue.pop(0)
+            else:
+                if self.interactive:
+                    try:
+                        line = self.psession.prompt(self.prompt)
+                        if line is None:
+                            stop = True
+                            break
+                    except EOFError:
+                        line = &#39;&#39;
+                else:
+                    self.stdout.write(self.prompt)
+                    self.stdout.flush()
+                    line = self.stdin.readline()
+                    if not len(line):
+                        line = &#39;&#39;
+                    else:
+                        line = line.rstrip(&#39;\r\n&#39;)
+            line = self.precmd(line)
+            stop = self.onecmd(line)
+            stop = self.postcmd(stop, line)
+        self.postloop()
+
+    def preloop(self):
+        pass
+    def precmd(self,line):
+        return line
+    def onecmd(self, line):
+        line = line.strip()
+        cmd_args = shlex.split(line)
+        if len(cmd_args) == 0:
+            return
+        cmd = cmd_args[0]
+        self.lastcmd = line
+        if hasattr(self,&#39;do_&#39;+cmd):
+            return getattr(self,&#39;do_&#39;+cmd)(*cmd_args[1:])
+        else:
+            return self.default(cmd_args,line)
+
+    def default(self,cmd_args,line):
+        if line.startswith(&#39;?&#39;):
+            return self.onecmd(&#39;help &#39;+line[1:])
+
+        if self.default_shell:
+            if line.startswith(&#39;!&#39;):
+                cmd_args[0] = cmd_args[0][1:]
+                proc = subprocess.run(cmd_args)
+                return
+            elif line.startswith(&#39;$&#39;):
+                m = re.search(&#39;\\$([^=]+)=(.+)&#39;,line)
+                if m is not None:
+                    var_name,value = m.groups()
+                    os.environ[var_name] = value
+                    return
+            proc = subprocess.run(cmd_args)
+        else:
+            self.stdout.write(&#39;*** Unknown syntax: %s\n&#39;%line)
+
+    def complete(self, document, complete_event):
+
+        &#34;&#34;&#34;
+        cases:
+            if stuff after cursor, pretend nothing exists up until cursor
+            no arguments typed:
+                if  do complete_char then complete names
+            =1 argument typed, cursor not on space, nothing later:
+                if do_complete_char, then complete names
+            =1 argument typed, cursor on space, nothing later:
+                call completion for given cmd, prev_args=[], current_arg=&#39;&#39;
+            &gt;=2 arguments typed, cursor not on space, nothing later:
+            &gt;=2 arguments typed, cursor on space, nothing later:
+
+        &#34;&#34;&#34;
+        cmd_args = shlex.split(document.current_line_before_cursor)
+        on_whitespace = document.char_before_cursor in &#39; \t&#39;
+        if len(cmd_args) == 0:
+            if self.do_complete_cmd:
+                prev_args = []
+                curr_arg = &#39;&#39;
+                yield from self.completenames(prev_args,curr_arg,document,complete_event)
+                return
+            else:
+                #no completion
+                return
+        elif len(cmd_args) == 1:
+            if on_whitespace:
+                prev_args = cmd_args
+                curr_arg = &#39;&#39;
+            else:
+                if self.do_complete_cmd:
+                    prev_args = []
+                    curr_arg = cmd_args[0]
+                    yield from self.completenames(prev_args,curr_arg,document,complete_event)
+                else:
+                    return
+        else:
+            if on_whitespace:
+                prev_args = cmd_args
+                curr_arg = &#39;&#39;
+            else:
+                prev_args = cmd_args[:-1]
+                curr_arg = cmd_args[-1]
+
+        cmd = cmd_args[0]
+        if cmd in self.cmds_comp:
+            #existing command complete
+            yield from getattr(self,&#39;complete_&#39;+cmd)(prev_args,curr_arg,document,complete_event)
+        else:
+            #default complete
+            yield from self.completedefault(prev_args,curr_arg,document,complete_event)
+
+    def completedefault(self, prev_args, curr_arg, document, complete_event):
+        return
+        yield
+
+    def completenames(self, prev_args, curr_arg, document, complete_event):
+        if curr_arg == &#39;&#39;:
+            #all names
+            yield from [Completion(name,0) for name in self.cmds]
+        else:
+            yield from [Completion(name,-len(curr_arg)) for name in self.cmds if name.startswith(curr_arg)]
+
+    def postcmd(self, stop, line):
+        &#34;&#34;&#34;Hook method executed just after a command dispatch is finished.&#34;&#34;&#34;
+        return stop
+    def postloop(self):
+        pass
+
+    def do_help(self, *args):
+        &#39;List available commands with &#34;help&#34; or detailed help with &#34;help cmd&#34;.&#39;
+        if len(args) == 1:
+            arg = args[0]
+            if hasattr(self,&#39;help_&#39;+arg):
+                getattr(self,&#39;help_&#39;+arg)()
+                return
+            elif hasattr(self,&#39;do_&#39;+arg):
+                doc = getattr(self,&#39;do_&#39;+arg).__doc__
+                if doc:
+                    self.stdout.write(str(doc)+&#39;\n&#39;)
+                    return
+            self.stdout.write((self.nohelp % arg) + &#39;\n&#39;)
+        elif len(args) == 0:
+            self.stdout.write(&#34;%s\n&#34;%str(self.doc_leader))
+            self.print_topics(self.doc_header,   self.cmds_doc,   15,80)
+            self.print_topics(self.misc_header,  self.help_doc,15,80)
+            self.print_topics(self.undoc_header, self.cmds_undoc, 15,80)
+        else:
+            self.stdout.write(&#39;help command not understood\n&#39;)
+
+    def print_topics(self, header, cmds, cmdlen, maxcol):
+        if cmds:
+            self.stdout.write(&#34;%s\n&#34;%str(header))
+            if self.ruler:
+                self.stdout.write(&#34;%s\n&#34;%str(self.ruler * len(header)))
+            self.columnize(cmds, maxcol-1)
+            self.stdout.write(&#34;\n&#34;)
+    def columnize(self, inputs, displaywidth=80):
+        &#34;&#34;&#34;Display a list of strings as a compact set of columns.
+
+        Each column is only as wide as necessary.
+        Columns are separated by two spaces (one was not legible enough).
+        &#34;&#34;&#34;
+        if not inputs:
+            self.stdout.write(&#34;&lt;empty&gt;\n&#34;)
+            return
+
+        nonstrings = [i for i in range(len(inputs))
+                        if not isinstance(inputs[i], str)]
+        if nonstrings:
+            raise TypeError(&#34;list[i] not a string for i in %s&#34;
+                            % &#34;, &#34;.join(map(str, nonstrings)))
+        size = len(inputs)
+        if size == 1:
+            self.stdout.write(&#39;%s\n&#39;%str(inputs[0]))
+            return
+        # Try every row count from 1 upwards
+        for nrows in range(1, len(inputs)):
+            ncols = (size+nrows-1) // nrows
+            colwidths = []
+            totwidth = -2
+            for col in range(ncols):
+                colwidth = 0
+                for row in range(nrows):
+                    i = row + nrows*col
+                    if i &gt;= size:
+                        break
+                    x = inputs[i]
+                    colwidth = max(colwidth, len(x))
+                colwidths.append(colwidth)
+                totwidth += colwidth + 2
+                if totwidth &gt; displaywidth:
+                    break
+            if totwidth &lt;= displaywidth:
+                break
+        else:
+            nrows = len(inputs)
+            ncols = 1
+            colwidths = [0]
+        for row in range(nrows):
+            texts = []
+            for col in range(ncols):
+                i = row + nrows*col
+                if i &gt;= size:
+                    x = &#34;&#34;
+                else:
+                    x = inputs[i]
+                texts.append(x)
+            while texts and not texts[-1]:
+                del texts[-1]
+            for col in range(len(texts)):
+                texts[col] = texts[col].ljust(colwidths[col])
+            self.stdout.write(&#34;%s\n&#34;%str(&#34;  &#34;.join(texts)))</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="ptkcmd.ptkcmd.complete_files"><code class="name flex">
+<span>def <span class="ident">complete_files</span></span>(<span>curr_arg, path=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def complete_files(curr_arg,path=None):
+    if path is None:
+        path = os.getcwd()
+    full_path = os.path.join(path,curr_arg)
+    if curr_arg == &#39;&#39; or full_path.endswith(&#39;/&#39;):
+        if os.path.exists(full_path):
+            for item in os.listdir(full_path):
+                yield Completion(item,0)
+    else:
+        dirname,basename = os.path.split(full_path)
+        if os.path.exists(dirname):
+            for item in os.listdir(dirname):
+                if item.startswith(basename):
+                    yield Completion(item,-len(basename))</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="ptkcmd.ptkcmd.PtkCmd"><code class="flex name class">
+<span>class <span class="ident">PtkCmd</span></span>
+<span>(</span><span>stdin=None, stdout=None, intro=None, interactive=True, do_complete_cmd=True, default_shell=False, **psession_kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class PtkCmd():
+    identifer_chars = string.ascii_letters + string.digits + &#39;_&#39;
+    prompt = &#39;(PtkCmd) &#39;
+    style = Style.from_dict({
+        &#39;prompt&#39;:&#39;#6600ff&#39;,
+        })
+    nohelp = &#34;*** No help on %s&#34;
+    doc_leader = &#34;&#34;
+    doc_header = &#34;Documented commands (type help &lt;topic&gt;):&#34;
+    misc_header = &#34;Miscellaneous help topics:&#34;
+    undoc_header = &#34;Undocumented commands:&#34;
+    ruler = &#39;=&#39;
+    def __init__(self,stdin=None,stdout=None,intro=None,interactive=True,do_complete_cmd=True,default_shell=False,**psession_kwargs):
+        if stdin is None:
+            stdin = sys.stdin
+        if stdout is None:
+            stdout = sys.stdout
+        self.stdin = stdin
+        self.stdout = stdout
+        if &#39;completer&#39; in psession_kwargs:
+            raise Exception(&#39;Custom completer cannot be used&#39;)
+        self.completer = PtkCmdCompleter(self)
+        psession_kwargs[&#39;completer&#39;] = self.completer
+        if &#39;style&#39; in psession_kwargs:
+            self.style = psession_kwargs[&#39;style&#39;]
+        else:
+            psession_kwargs[&#39;style&#39;] = self.style
+        if not &#39;key_bindings&#39; in psession_kwargs:
+            bindings = KeyBindings()
+            @bindings.add(&#39;c-d&#39;)
+            def eof_keypress(event):
+                event.app.exit()
+            psession_kwargs[&#39;key_bindings&#39;] = bindings
+        self.psession = PromptSession(**psession_kwargs)
+        self.intro = intro
+        self.cmdqueue = []
+        self.interactive = interactive
+        self.do_complete_cmd = do_complete_cmd
+        self.default_shell = default_shell
+        
+        names = dir(self.__class__)
+        cmds_doc = set() 
+        cmds_undoc = set()
+        help_doc = set()
+        help_info = {}
+        cmds_comp = set()
+        for name in names:
+            if name.startswith(&#39;help_&#39;):
+                name = name[5:]
+                help_doc.add(name)
+            elif name.startswith(&#39;do_&#39;):
+                if getattr(self,name).__doc__:
+                    cmds_doc.add(name[3:])
+                else:
+                    cmds_undoc.add(name[3:])
+            elif name.startswith(&#39;complete_&#39;):
+                cmds_comp.add(name[9:])
+        help_doc -= (cmds_doc | cmds_undoc)
+        self.cmds = list(sorted(cmds_doc | cmds_undoc))
+        self.cmds_doc = list(sorted(cmds_doc))
+        self.cmds_undoc = list(sorted(cmds_undoc))
+        self.help_doc = list(sorted(help_doc))
+        self.cmds_comp = list(sorted(cmds_comp))
+    
+
+    def cmdloop(self,intro=None):
+        self.preloop()
+
+        if self.intro is not None:
+            self.stdout.write(str(self.intro)+&#34;\n&#34;)
+        stop = None
+        while not stop:
+            if len(self.cmdqueue) &gt; 0:
+                line = self.cmdqueue.pop(0)
+            else:
+                if self.interactive:
+                    try:
+                        line = self.psession.prompt(self.prompt)
+                        if line is None:
+                            stop = True
+                            break
+                    except EOFError:
+                        line = &#39;&#39;
+                else:
+                    self.stdout.write(self.prompt)
+                    self.stdout.flush()
+                    line = self.stdin.readline()
+                    if not len(line):
+                        line = &#39;&#39;
+                    else:
+                        line = line.rstrip(&#39;\r\n&#39;)
+            line = self.precmd(line)
+            stop = self.onecmd(line)
+            stop = self.postcmd(stop, line)
+        self.postloop()
+
+    def preloop(self):
+        pass
+    def precmd(self,line):
+        return line
+    def onecmd(self, line):
+        line = line.strip()
+        cmd_args = shlex.split(line)
+        if len(cmd_args) == 0:
+            return
+        cmd = cmd_args[0]
+        self.lastcmd = line
+        if hasattr(self,&#39;do_&#39;+cmd):
+            return getattr(self,&#39;do_&#39;+cmd)(*cmd_args[1:])
+        else:
+            return self.default(cmd_args,line)
+
+    def default(self,cmd_args,line):
+        if line.startswith(&#39;?&#39;):
+            return self.onecmd(&#39;help &#39;+line[1:])
+
+        if self.default_shell:
+            if line.startswith(&#39;!&#39;):
+                cmd_args[0] = cmd_args[0][1:]
+                proc = subprocess.run(cmd_args)
+                return
+            elif line.startswith(&#39;$&#39;):
+                m = re.search(&#39;\\$([^=]+)=(.+)&#39;,line)
+                if m is not None:
+                    var_name,value = m.groups()
+                    os.environ[var_name] = value
+                    return
+            proc = subprocess.run(cmd_args)
+        else:
+            self.stdout.write(&#39;*** Unknown syntax: %s\n&#39;%line)
+
+    def complete(self, document, complete_event):
+
+        &#34;&#34;&#34;
+        cases:
+            if stuff after cursor, pretend nothing exists up until cursor
+            no arguments typed:
+                if  do complete_char then complete names
+            =1 argument typed, cursor not on space, nothing later:
+                if do_complete_char, then complete names
+            =1 argument typed, cursor on space, nothing later:
+                call completion for given cmd, prev_args=[], current_arg=&#39;&#39;
+            &gt;=2 arguments typed, cursor not on space, nothing later:
+            &gt;=2 arguments typed, cursor on space, nothing later:
+
+        &#34;&#34;&#34;
+        cmd_args = shlex.split(document.current_line_before_cursor)
+        on_whitespace = document.char_before_cursor in &#39; \t&#39;
+        if len(cmd_args) == 0:
+            if self.do_complete_cmd:
+                prev_args = []
+                curr_arg = &#39;&#39;
+                yield from self.completenames(prev_args,curr_arg,document,complete_event)
+                return
+            else:
+                #no completion
+                return
+        elif len(cmd_args) == 1:
+            if on_whitespace:
+                prev_args = cmd_args
+                curr_arg = &#39;&#39;
+            else:
+                if self.do_complete_cmd:
+                    prev_args = []
+                    curr_arg = cmd_args[0]
+                    yield from self.completenames(prev_args,curr_arg,document,complete_event)
+                else:
+                    return
+        else:
+            if on_whitespace:
+                prev_args = cmd_args
+                curr_arg = &#39;&#39;
+            else:
+                prev_args = cmd_args[:-1]
+                curr_arg = cmd_args[-1]
+
+        cmd = cmd_args[0]
+        if cmd in self.cmds_comp:
+            #existing command complete
+            yield from getattr(self,&#39;complete_&#39;+cmd)(prev_args,curr_arg,document,complete_event)
+        else:
+            #default complete
+            yield from self.completedefault(prev_args,curr_arg,document,complete_event)
+
+    def completedefault(self, prev_args, curr_arg, document, complete_event):
+        return
+        yield
+
+    def completenames(self, prev_args, curr_arg, document, complete_event):
+        if curr_arg == &#39;&#39;:
+            #all names
+            yield from [Completion(name,0) for name in self.cmds]
+        else:
+            yield from [Completion(name,-len(curr_arg)) for name in self.cmds if name.startswith(curr_arg)]
+
+    def postcmd(self, stop, line):
+        &#34;&#34;&#34;Hook method executed just after a command dispatch is finished.&#34;&#34;&#34;
+        return stop
+    def postloop(self):
+        pass
+
+    def do_help(self, *args):
+        &#39;List available commands with &#34;help&#34; or detailed help with &#34;help cmd&#34;.&#39;
+        if len(args) == 1:
+            arg = args[0]
+            if hasattr(self,&#39;help_&#39;+arg):
+                getattr(self,&#39;help_&#39;+arg)()
+                return
+            elif hasattr(self,&#39;do_&#39;+arg):
+                doc = getattr(self,&#39;do_&#39;+arg).__doc__
+                if doc:
+                    self.stdout.write(str(doc)+&#39;\n&#39;)
+                    return
+            self.stdout.write((self.nohelp % arg) + &#39;\n&#39;)
+        elif len(args) == 0:
+            self.stdout.write(&#34;%s\n&#34;%str(self.doc_leader))
+            self.print_topics(self.doc_header,   self.cmds_doc,   15,80)
+            self.print_topics(self.misc_header,  self.help_doc,15,80)
+            self.print_topics(self.undoc_header, self.cmds_undoc, 15,80)
+        else:
+            self.stdout.write(&#39;help command not understood\n&#39;)
+
+    def print_topics(self, header, cmds, cmdlen, maxcol):
+        if cmds:
+            self.stdout.write(&#34;%s\n&#34;%str(header))
+            if self.ruler:
+                self.stdout.write(&#34;%s\n&#34;%str(self.ruler * len(header)))
+            self.columnize(cmds, maxcol-1)
+            self.stdout.write(&#34;\n&#34;)
+    def columnize(self, inputs, displaywidth=80):
+        &#34;&#34;&#34;Display a list of strings as a compact set of columns.
+
+        Each column is only as wide as necessary.
+        Columns are separated by two spaces (one was not legible enough).
+        &#34;&#34;&#34;
+        if not inputs:
+            self.stdout.write(&#34;&lt;empty&gt;\n&#34;)
+            return
+
+        nonstrings = [i for i in range(len(inputs))
+                        if not isinstance(inputs[i], str)]
+        if nonstrings:
+            raise TypeError(&#34;list[i] not a string for i in %s&#34;
+                            % &#34;, &#34;.join(map(str, nonstrings)))
+        size = len(inputs)
+        if size == 1:
+            self.stdout.write(&#39;%s\n&#39;%str(inputs[0]))
+            return
+        # Try every row count from 1 upwards
+        for nrows in range(1, len(inputs)):
+            ncols = (size+nrows-1) // nrows
+            colwidths = []
+            totwidth = -2
+            for col in range(ncols):
+                colwidth = 0
+                for row in range(nrows):
+                    i = row + nrows*col
+                    if i &gt;= size:
+                        break
+                    x = inputs[i]
+                    colwidth = max(colwidth, len(x))
+                colwidths.append(colwidth)
+                totwidth += colwidth + 2
+                if totwidth &gt; displaywidth:
+                    break
+            if totwidth &lt;= displaywidth:
+                break
+        else:
+            nrows = len(inputs)
+            ncols = 1
+            colwidths = [0]
+        for row in range(nrows):
+            texts = []
+            for col in range(ncols):
+                i = row + nrows*col
+                if i &gt;= size:
+                    x = &#34;&#34;
+                else:
+                    x = inputs[i]
+                texts.append(x)
+            while texts and not texts[-1]:
+                del texts[-1]
+            for col in range(len(texts)):
+                texts[col] = texts[col].ljust(colwidths[col])
+            self.stdout.write(&#34;%s\n&#34;%str(&#34;  &#34;.join(texts)))</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="ptkcmd.ptkcmd.PtkCmd.doc_header"><code class="name">var <span class="ident">doc_header</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="ptkcmd.ptkcmd.PtkCmd.doc_leader"><code class="name">var <span class="ident">doc_leader</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="ptkcmd.ptkcmd.PtkCmd.identifer_chars"><code class="name">var <span class="ident">identifer_chars</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="ptkcmd.ptkcmd.PtkCmd.misc_header"><code class="name">var <span class="ident">misc_header</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="ptkcmd.ptkcmd.PtkCmd.nohelp"><code class="name">var <span class="ident">nohelp</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="ptkcmd.ptkcmd.PtkCmd.prompt"><code class="name">var <span class="ident">prompt</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="ptkcmd.ptkcmd.PtkCmd.ruler"><code class="name">var <span class="ident">ruler</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="ptkcmd.ptkcmd.PtkCmd.style"><code class="name">var <span class="ident">style</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="ptkcmd.ptkcmd.PtkCmd.undoc_header"><code class="name">var <span class="ident">undoc_header</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="ptkcmd.ptkcmd.PtkCmd.cmdloop"><code class="name flex">
+<span>def <span class="ident">cmdloop</span></span>(<span>self, intro=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def cmdloop(self,intro=None):
+    self.preloop()
+
+    if self.intro is not None:
+        self.stdout.write(str(self.intro)+&#34;\n&#34;)
+    stop = None
+    while not stop:
+        if len(self.cmdqueue) &gt; 0:
+            line = self.cmdqueue.pop(0)
+        else:
+            if self.interactive:
+                try:
+                    line = self.psession.prompt(self.prompt)
+                    if line is None:
+                        stop = True
+                        break
+                except EOFError:
+                    line = &#39;&#39;
+            else:
+                self.stdout.write(self.prompt)
+                self.stdout.flush()
+                line = self.stdin.readline()
+                if not len(line):
+                    line = &#39;&#39;
+                else:
+                    line = line.rstrip(&#39;\r\n&#39;)
+        line = self.precmd(line)
+        stop = self.onecmd(line)
+        stop = self.postcmd(stop, line)
+    self.postloop()</code></pre>
+</details>
+</dd>
+<dt id="ptkcmd.ptkcmd.PtkCmd.columnize"><code class="name flex">
+<span>def <span class="ident">columnize</span></span>(<span>self, inputs, displaywidth=80)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Display a list of strings as a compact set of columns.</p>
+<p>Each column is only as wide as necessary.
+Columns are separated by two spaces (one was not legible enough).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def columnize(self, inputs, displaywidth=80):
+    &#34;&#34;&#34;Display a list of strings as a compact set of columns.
+
+    Each column is only as wide as necessary.
+    Columns are separated by two spaces (one was not legible enough).
+    &#34;&#34;&#34;
+    if not inputs:
+        self.stdout.write(&#34;&lt;empty&gt;\n&#34;)
+        return
+
+    nonstrings = [i for i in range(len(inputs))
+                    if not isinstance(inputs[i], str)]
+    if nonstrings:
+        raise TypeError(&#34;list[i] not a string for i in %s&#34;
+                        % &#34;, &#34;.join(map(str, nonstrings)))
+    size = len(inputs)
+    if size == 1:
+        self.stdout.write(&#39;%s\n&#39;%str(inputs[0]))
+        return
+    # Try every row count from 1 upwards
+    for nrows in range(1, len(inputs)):
+        ncols = (size+nrows-1) // nrows
+        colwidths = []
+        totwidth = -2
+        for col in range(ncols):
+            colwidth = 0
+            for row in range(nrows):
+                i = row + nrows*col
+                if i &gt;= size:
+                    break
+                x = inputs[i]
+                colwidth = max(colwidth, len(x))
+            colwidths.append(colwidth)
+            totwidth += colwidth + 2
+            if totwidth &gt; displaywidth:
+                break
+        if totwidth &lt;= displaywidth:
+            break
+    else:
+        nrows = len(inputs)
+        ncols = 1
+        colwidths = [0]
+    for row in range(nrows):
+        texts = []
+        for col in range(ncols):
+            i = row + nrows*col
+            if i &gt;= size:
+                x = &#34;&#34;
+            else:
+                x = inputs[i]
+            texts.append(x)
+        while texts and not texts[-1]:
+            del texts[-1]
+        for col in range(len(texts)):
+            texts[col] = texts[col].ljust(colwidths[col])
+        self.stdout.write(&#34;%s\n&#34;%str(&#34;  &#34;.join(texts)))</code></pre>
+</details>
+</dd>
+<dt id="ptkcmd.ptkcmd.PtkCmd.complete"><code class="name flex">
+<span>def <span class="ident">complete</span></span>(<span>self, document, complete_event)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>cases:
+if stuff after cursor, pretend nothing exists up until cursor
+no arguments typed:
+if
+do complete_char then complete names
+=1 argument typed, cursor not on space, nothing later:
+if do_complete_char, then complete names
+=1 argument typed, cursor on space, nothing later:
+call completion for given cmd, prev_args=[], current_arg=''
+&gt;=2 arguments typed, cursor not on space, nothing later:
+&gt;=2 arguments typed, cursor on space, nothing later:</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def complete(self, document, complete_event):
+
+    &#34;&#34;&#34;
+    cases:
+        if stuff after cursor, pretend nothing exists up until cursor
+        no arguments typed:
+            if  do complete_char then complete names
+        =1 argument typed, cursor not on space, nothing later:
+            if do_complete_char, then complete names
+        =1 argument typed, cursor on space, nothing later:
+            call completion for given cmd, prev_args=[], current_arg=&#39;&#39;
+        &gt;=2 arguments typed, cursor not on space, nothing later:
+        &gt;=2 arguments typed, cursor on space, nothing later:
+
+    &#34;&#34;&#34;
+    cmd_args = shlex.split(document.current_line_before_cursor)
+    on_whitespace = document.char_before_cursor in &#39; \t&#39;
+    if len(cmd_args) == 0:
+        if self.do_complete_cmd:
+            prev_args = []
+            curr_arg = &#39;&#39;
+            yield from self.completenames(prev_args,curr_arg,document,complete_event)
+            return
+        else:
+            #no completion
+            return
+    elif len(cmd_args) == 1:
+        if on_whitespace:
+            prev_args = cmd_args
+            curr_arg = &#39;&#39;
+        else:
+            if self.do_complete_cmd:
+                prev_args = []
+                curr_arg = cmd_args[0]
+                yield from self.completenames(prev_args,curr_arg,document,complete_event)
+            else:
+                return
+    else:
+        if on_whitespace:
+            prev_args = cmd_args
+            curr_arg = &#39;&#39;
+        else:
+            prev_args = cmd_args[:-1]
+            curr_arg = cmd_args[-1]
+
+    cmd = cmd_args[0]
+    if cmd in self.cmds_comp:
+        #existing command complete
+        yield from getattr(self,&#39;complete_&#39;+cmd)(prev_args,curr_arg,document,complete_event)
+    else:
+        #default complete
+        yield from self.completedefault(prev_args,curr_arg,document,complete_event)</code></pre>
+</details>
+</dd>
+<dt id="ptkcmd.ptkcmd.PtkCmd.completedefault"><code class="name flex">
+<span>def <span class="ident">completedefault</span></span>(<span>self, prev_args, curr_arg, document, complete_event)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def completedefault(self, prev_args, curr_arg, document, complete_event):
+    return
+    yield</code></pre>
+</details>
+</dd>
+<dt id="ptkcmd.ptkcmd.PtkCmd.completenames"><code class="name flex">
+<span>def <span class="ident">completenames</span></span>(<span>self, prev_args, curr_arg, document, complete_event)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def completenames(self, prev_args, curr_arg, document, complete_event):
+    if curr_arg == &#39;&#39;:
+        #all names
+        yield from [Completion(name,0) for name in self.cmds]
+    else:
+        yield from [Completion(name,-len(curr_arg)) for name in self.cmds if name.startswith(curr_arg)]</code></pre>
+</details>
+</dd>
+<dt id="ptkcmd.ptkcmd.PtkCmd.default"><code class="name flex">
+<span>def <span class="ident">default</span></span>(<span>self, cmd_args, line)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def default(self,cmd_args,line):
+    if line.startswith(&#39;?&#39;):
+        return self.onecmd(&#39;help &#39;+line[1:])
+
+    if self.default_shell:
+        if line.startswith(&#39;!&#39;):
+            cmd_args[0] = cmd_args[0][1:]
+            proc = subprocess.run(cmd_args)
+            return
+        elif line.startswith(&#39;$&#39;):
+            m = re.search(&#39;\\$([^=]+)=(.+)&#39;,line)
+            if m is not None:
+                var_name,value = m.groups()
+                os.environ[var_name] = value
+                return
+        proc = subprocess.run(cmd_args)
+    else:
+        self.stdout.write(&#39;*** Unknown syntax: %s\n&#39;%line)</code></pre>
+</details>
+</dd>
+<dt id="ptkcmd.ptkcmd.PtkCmd.do_help"><code class="name flex">
+<span>def <span class="ident">do_help</span></span>(<span>self, *args)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>List available commands with "help" or detailed help with "help cmd".</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def do_help(self, *args):
+    &#39;List available commands with &#34;help&#34; or detailed help with &#34;help cmd&#34;.&#39;
+    if len(args) == 1:
+        arg = args[0]
+        if hasattr(self,&#39;help_&#39;+arg):
+            getattr(self,&#39;help_&#39;+arg)()
+            return
+        elif hasattr(self,&#39;do_&#39;+arg):
+            doc = getattr(self,&#39;do_&#39;+arg).__doc__
+            if doc:
+                self.stdout.write(str(doc)+&#39;\n&#39;)
+                return
+        self.stdout.write((self.nohelp % arg) + &#39;\n&#39;)
+    elif len(args) == 0:
+        self.stdout.write(&#34;%s\n&#34;%str(self.doc_leader))
+        self.print_topics(self.doc_header,   self.cmds_doc,   15,80)
+        self.print_topics(self.misc_header,  self.help_doc,15,80)
+        self.print_topics(self.undoc_header, self.cmds_undoc, 15,80)
+    else:
+        self.stdout.write(&#39;help command not understood\n&#39;)</code></pre>
+</details>
+</dd>
+<dt id="ptkcmd.ptkcmd.PtkCmd.onecmd"><code class="name flex">
+<span>def <span class="ident">onecmd</span></span>(<span>self, line)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def onecmd(self, line):
+    line = line.strip()
+    cmd_args = shlex.split(line)
+    if len(cmd_args) == 0:
+        return
+    cmd = cmd_args[0]
+    self.lastcmd = line
+    if hasattr(self,&#39;do_&#39;+cmd):
+        return getattr(self,&#39;do_&#39;+cmd)(*cmd_args[1:])
+    else:
+        return self.default(cmd_args,line)</code></pre>
+</details>
+</dd>
+<dt id="ptkcmd.ptkcmd.PtkCmd.postcmd"><code class="name flex">
+<span>def <span class="ident">postcmd</span></span>(<span>self, stop, line)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Hook method executed just after a command dispatch is finished.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def postcmd(self, stop, line):
+    &#34;&#34;&#34;Hook method executed just after a command dispatch is finished.&#34;&#34;&#34;
+    return stop</code></pre>
+</details>
+</dd>
+<dt id="ptkcmd.ptkcmd.PtkCmd.postloop"><code class="name flex">
+<span>def <span class="ident">postloop</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def postloop(self):
+    pass</code></pre>
+</details>
+</dd>
+<dt id="ptkcmd.ptkcmd.PtkCmd.precmd"><code class="name flex">
+<span>def <span class="ident">precmd</span></span>(<span>self, line)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def precmd(self,line):
+    return line</code></pre>
+</details>
+</dd>
+<dt id="ptkcmd.ptkcmd.PtkCmd.preloop"><code class="name flex">
+<span>def <span class="ident">preloop</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def preloop(self):
+    pass</code></pre>
+</details>
+</dd>
+<dt id="ptkcmd.ptkcmd.PtkCmd.print_topics"><code class="name flex">
+<span>def <span class="ident">print_topics</span></span>(<span>self, header, cmds, cmdlen, maxcol)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def print_topics(self, header, cmds, cmdlen, maxcol):
+    if cmds:
+        self.stdout.write(&#34;%s\n&#34;%str(header))
+        if self.ruler:
+            self.stdout.write(&#34;%s\n&#34;%str(self.ruler * len(header)))
+        self.columnize(cmds, maxcol-1)
+        self.stdout.write(&#34;\n&#34;)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="ptkcmd.ptkcmd.PtkCmdCompleter"><code class="flex name class">
+<span>class <span class="ident">PtkCmdCompleter</span></span>
+<span>(</span><span>ptkcmd)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Base class for completer implementations.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class PtkCmdCompleter(Completer):
+    def __init__(self,ptkcmd):
+        self.ptkcmd = ptkcmd
+
+    def get_completions(self,document,complete_event):
+        yield from self.ptkcmd.complete(document,complete_event)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>prompt_toolkit.completion.base.Completer</li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="ptkcmd.ptkcmd.PtkCmdCompleter.get_completions"><code class="name flex">
+<span>def <span class="ident">get_completions</span></span>(<span>self, document, complete_event)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This should be a generator that yields :class:<code>.Completion</code> instances.</p>
+<p>If the generation of completions is something expensive (that takes a
+lot of time), consider wrapping this <code>Completer</code> class in a
+<code>ThreadedCompleter</code>. In that case, the completer algorithm runs in a
+background thread and completions will be displayed as soon as they
+arrive.</p>
+<p>:param document: :class:<code>~prompt_toolkit.document.Document</code> instance.
+:param complete_event: :class:<code>.CompleteEvent</code> instance.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_completions(self,document,complete_event):
+    yield from self.ptkcmd.complete(document,complete_event)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="ptkcmd" href="index.html">ptkcmd</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="ptkcmd.ptkcmd.complete_files" href="#ptkcmd.ptkcmd.complete_files">complete_files</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="ptkcmd.ptkcmd.PtkCmd" href="#ptkcmd.ptkcmd.PtkCmd">PtkCmd</a></code></h4>
+<ul class="two-column">
+<li><code><a title="ptkcmd.ptkcmd.PtkCmd.cmdloop" href="#ptkcmd.ptkcmd.PtkCmd.cmdloop">cmdloop</a></code></li>
+<li><code><a title="ptkcmd.ptkcmd.PtkCmd.columnize" href="#ptkcmd.ptkcmd.PtkCmd.columnize">columnize</a></code></li>
+<li><code><a title="ptkcmd.ptkcmd.PtkCmd.complete" href="#ptkcmd.ptkcmd.PtkCmd.complete">complete</a></code></li>
+<li><code><a title="ptkcmd.ptkcmd.PtkCmd.completedefault" href="#ptkcmd.ptkcmd.PtkCmd.completedefault">completedefault</a></code></li>
+<li><code><a title="ptkcmd.ptkcmd.PtkCmd.completenames" href="#ptkcmd.ptkcmd.PtkCmd.completenames">completenames</a></code></li>
+<li><code><a title="ptkcmd.ptkcmd.PtkCmd.default" href="#ptkcmd.ptkcmd.PtkCmd.default">default</a></code></li>
+<li><code><a title="ptkcmd.ptkcmd.PtkCmd.do_help" href="#ptkcmd.ptkcmd.PtkCmd.do_help">do_help</a></code></li>
+<li><code><a title="ptkcmd.ptkcmd.PtkCmd.doc_header" href="#ptkcmd.ptkcmd.PtkCmd.doc_header">doc_header</a></code></li>
+<li><code><a title="ptkcmd.ptkcmd.PtkCmd.doc_leader" href="#ptkcmd.ptkcmd.PtkCmd.doc_leader">doc_leader</a></code></li>
+<li><code><a title="ptkcmd.ptkcmd.PtkCmd.identifer_chars" href="#ptkcmd.ptkcmd.PtkCmd.identifer_chars">identifer_chars</a></code></li>
+<li><code><a title="ptkcmd.ptkcmd.PtkCmd.misc_header" href="#ptkcmd.ptkcmd.PtkCmd.misc_header">misc_header</a></code></li>
+<li><code><a title="ptkcmd.ptkcmd.PtkCmd.nohelp" href="#ptkcmd.ptkcmd.PtkCmd.nohelp">nohelp</a></code></li>
+<li><code><a title="ptkcmd.ptkcmd.PtkCmd.onecmd" href="#ptkcmd.ptkcmd.PtkCmd.onecmd">onecmd</a></code></li>
+<li><code><a title="ptkcmd.ptkcmd.PtkCmd.postcmd" href="#ptkcmd.ptkcmd.PtkCmd.postcmd">postcmd</a></code></li>
+<li><code><a title="ptkcmd.ptkcmd.PtkCmd.postloop" href="#ptkcmd.ptkcmd.PtkCmd.postloop">postloop</a></code></li>
+<li><code><a title="ptkcmd.ptkcmd.PtkCmd.precmd" href="#ptkcmd.ptkcmd.PtkCmd.precmd">precmd</a></code></li>
+<li><code><a title="ptkcmd.ptkcmd.PtkCmd.preloop" href="#ptkcmd.ptkcmd.PtkCmd.preloop">preloop</a></code></li>
+<li><code><a title="ptkcmd.ptkcmd.PtkCmd.print_topics" href="#ptkcmd.ptkcmd.PtkCmd.print_topics">print_topics</a></code></li>
+<li><code><a title="ptkcmd.ptkcmd.PtkCmd.prompt" href="#ptkcmd.ptkcmd.PtkCmd.prompt">prompt</a></code></li>
+<li><code><a title="ptkcmd.ptkcmd.PtkCmd.ruler" href="#ptkcmd.ptkcmd.PtkCmd.ruler">ruler</a></code></li>
+<li><code><a title="ptkcmd.ptkcmd.PtkCmd.style" href="#ptkcmd.ptkcmd.PtkCmd.style">style</a></code></li>
+<li><code><a title="ptkcmd.ptkcmd.PtkCmd.undoc_header" href="#ptkcmd.ptkcmd.PtkCmd.undoc_header">undoc_header</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="ptkcmd.ptkcmd.PtkCmdCompleter" href="#ptkcmd.ptkcmd.PtkCmdCompleter">PtkCmdCompleter</a></code></h4>
+<ul class="">
+<li><code><a title="ptkcmd.ptkcmd.PtkCmdCompleter.get_completions" href="#ptkcmd.ptkcmd.PtkCmdCompleter.get_completions">get_completions</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>
