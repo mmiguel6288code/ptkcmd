@@ -10,33 +10,25 @@ from ptkcmd import PtkCmd, Completion, complete_files
 class MyCmd(PtkCmd):
     prompt='MyPtkCmd$ ' #change the prompt
     def __init__(self,stdin=None,stdout=None,intro=None,
-    	interactive=True,do_complete_cmd=True,
-	default_shell=False,**psession_kwargs):
+		interactive=True,do_complete_cmd=True,
+		default_shell=False,**psession_kwargs):
+
         super().__init__(stdin,stdout,intro,interactive,
 		do_complete_cmd,default_shell,**psession_kwargs)
 ```
 stdin, stdout, intro are as defined in the standard library cmd.py
 
-If interactive is True, then the prompt-toolkit prompt() 
-    method will be utilized from a PromptSession.
-If interactive is False, then the prompt will be written 
-to stdout and a line read from stdin
+If interactive is True, then the prompt-toolkit prompt() method will be utilized from a PromptSession.
+If interactive is False, then the prompt will be written to stdout and a line read from stdin
 
-If do_complete_cmd is True, then completion will be performed
-    for the initial command of each line against the list of known
-commands.
-If do_complete_cmd is False, no completion will be attempted for 
-the initial command.
-In either case, completion can be attempted for the arguments 
-according to any 'complete_' methods defined.
+If do_complete_cmd is True, then completion will be performed for the initial command of each line against the list of known commands.
+If do_complete_cmd is False, no completion will be attempted for the initial command.
+In either case, completion can be attempted for the arguments according to any 'complete_' methods defined.
 
 If default_shell is False, then receiving a command that does not have a "do_" method will result in writing an error to self.stdout.
-If default_shell is True, then the command will be used as an 
-input to subprocess.run(). The shell input to run() will be 
-False.
+If default_shell is True, then the command will be used as an input to subprocess.run(). The shell input to run() will be False.
 
-If additional keyword arguments are provided, they will be passed 
-to the PromptSession constructor that is used for prompts.
+If additional keyword arguments are provided, they will be passed to the PromptSession constructor that is used for prompts.
 The only PromptSession keyword argument not allowed is 'completer'.
 
 The following snippet defines a command named 'mycmd'.
@@ -47,14 +39,9 @@ class MyCmd(PtkCmd):
     ...
 
     def do_mycmd(self,args)
-    	"""
-        """
         self.stdout.write('mycmd args were %s\n' % repr(args))
 
     def complete_mycmd(self,prev_args,curr_arg,document,complete_event):
-    	"""
-
-	"""
         yield from complete_files(curr_arg)
 ```
 
