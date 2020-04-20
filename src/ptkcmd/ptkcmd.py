@@ -7,7 +7,6 @@ from prompt_toolkit.completion import Completer, Completion
 from prompt_toolkit.styles import Style
 from prompt_toolkit.key_binding import KeyBindings
 
-__version__ = '0.0.1'
 
 def complete_files(curr_arg,path=None):
     if path is None:
