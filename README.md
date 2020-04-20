@@ -34,7 +34,7 @@ The only PromptSession keyword argument not allowed is 'completer'.
 The following snippet defines a command named 'mycmd'.
 The args input is the list of arguments entered after the command.
 
-
+```
 class MyCmd(PtkCmd):
     ...
 
